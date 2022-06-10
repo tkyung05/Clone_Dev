@@ -4,12 +4,13 @@ import uuid
 
 class UserManager(BaseUserManager):
 
-    def create_user(self, email, nickname, password=None):
+    def create_user(self, email, nickname, password=None, profile_image=None):
         if not email:
             raise ValueError("Users Must Have an email address")
         user = self.model(
             email=self.normalize_email(email),
             nickname=nickname,
+            profile_image = profile_image,
         )
         user.set_password(password)
         user.save(using=self._db)
