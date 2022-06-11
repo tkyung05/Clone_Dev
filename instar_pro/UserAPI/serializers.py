@@ -37,6 +37,7 @@ class UserLoginSerializer(serializers.Serializer):
         try:
             payload = JWT_PAYLOAD_HANDLER(user)
             payload['nickname'] = User.objects.get(email=user).nickname
+            payload['profile_image'] = str(User.objects.get(email=user).profile_image)
             jwt_token = JWT_ENCODE_HANDLER(payload)
             update_last_login(None, user)
 
@@ -44,6 +45,7 @@ class UserLoginSerializer(serializers.Serializer):
             raise serializers.ValidationError(
         "User with given email and password does not exists"
         )
+        
         return {
             'email': user.email,
             'token': jwt_token

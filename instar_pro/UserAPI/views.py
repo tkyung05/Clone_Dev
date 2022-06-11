@@ -7,8 +7,8 @@ from .serializers import UserRegistrationSerializer, UserLoginSerializer
 
 
 class UserRegistrationView(CreateAPIView):
-    serializer_class = UserRegistrationSerializer
     permission_classes = (AllowAny,)
+    serializer_class = UserRegistrationSerializer
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -21,7 +21,7 @@ class UserRegistrationView(CreateAPIView):
             'message': "user registered successfully",
         }
         return Response(response, status=status_code)
-
+    
 
 class UserLoginView(GenericAPIView):
     permission_classes = (AllowAny,)
